@@ -7,7 +7,7 @@ import ru.tinkoff.edu.java.link_parser.dto.UrlData;
 
 import java.net.URI;
 
-public final class StackoverflowParser extends Parser {
+public final class StackOverflowParser extends Parser {
 
     private static final @NotNull String STACKOVERFLOW_QUESTIONS_PREFIX =
             "https://stackoverflow.com/questions/";

@@ -8,14 +8,14 @@ import ru.tinkoff.edu.java.link_parser.dto.UrlData;
 
 import java.net.URI;
 
-public sealed abstract class Parser permits GitHubParser, StackoverflowParser {
+public sealed abstract class Parser permits GitHubParser, StackOverflowParser {
 
     @Setter(AccessLevel.PROTECTED)
     protected @Nullable Parser nextParser;
 
     public static @NotNull Parser createChain() {
         Parser headOfChain = new GitHubParser();
-        headOfChain.setNextParser(new StackoverflowParser());
+        headOfChain.setNextParser(new StackOverflowParser());
         return headOfChain;
     }
 

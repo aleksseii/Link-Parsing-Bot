@@ -8,7 +8,6 @@ import ru.tinkoff.edu.java.link_parser.dto.UrlData;
 import java.net.URI;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 class StackOverflowParserTest {
 

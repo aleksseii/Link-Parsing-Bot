@@ -21,8 +21,10 @@ public final class GitHubParser extends Parser {
             String[] pair = urlString
                     .substring(GITHUB_PREFIX.length())
                     .split(SLASH);
-            return pair.length < 2 ? null : new GitHubData(pair[0], pair[1]);
+            if (pair.length >= 2) {
+                return new GitHubData(pair[0], pair[1]);
+            }
         }
-        return nextParser == null ? null : nextParser.parse(url);
+        return nextParser.parse(url);
     }
 }

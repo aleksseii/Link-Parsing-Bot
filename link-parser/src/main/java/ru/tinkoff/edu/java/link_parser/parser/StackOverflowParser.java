@@ -25,10 +25,9 @@ public final class StackOverflowParser extends Parser {
             try {
                 long id = Long.parseLong(values[0]);
                 return new StackOverflowData(id);
-            } catch (NumberFormatException var6) {
-                return null;
+            } catch (NumberFormatException e) { // delegating processing to the next parser
             }
         }
-        return nextParser == null ? null : nextParser.parse(url);
+        return nextParser.parse(url);
     }
 }

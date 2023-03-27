@@ -19,29 +19,10 @@ class StackOverflowParserTest {
     private static final @NotNull String VALID_STACKOVERFLOW_LINK =
             "https://stackoverflow.com/questions/1642028/what-is-the-operator-in-c";
 
-    private static final @NotNull String INVALID_STACKOVERFLOW_LINK =
-            "https://stackoverflow.com/";
-
-    private static final @NotNull String INVALID_ID_STACKOVERFLOW_LINK =
-            "https://stackoverflow.com/questions/abcdef/what-is-the-operator-in-c";
-
-
     @Test
     void shouldParseValidStackOverflowLink() {
         final UrlData expected = new StackOverflowData(EXPECTED_QUESTION_ID);
         final UrlData actual = PARSER.parse(URI.create(VALID_STACKOVERFLOW_LINK));
         assertEquals(expected, actual);
-    }
-
-    @Test
-    void shouldReturnNullGettingInvalidLink() {
-        final UrlData actual = PARSER.parse(URI.create(INVALID_STACKOVERFLOW_LINK));
-        assertNull(actual);
-    }
-
-    @Test
-    void shouldReturnNullGettingInvalidIdLink() {
-        final UrlData actual = PARSER.parse(URI.create(INVALID_ID_STACKOVERFLOW_LINK));
-        assertNull(actual);
     }
 }

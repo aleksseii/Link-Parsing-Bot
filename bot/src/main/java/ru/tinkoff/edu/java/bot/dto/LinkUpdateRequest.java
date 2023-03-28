@@ -8,7 +8,7 @@ import java.net.URI;
 import java.util.List;
 
 public record LinkUpdateRequest(@Positive long id,
-                                @NotNull URI url,
+                                @NotBlank URI url,
                                 @NotBlank String description,
                                 @NotNull List<@NotNull @Positive Long> tgChatIds) {
 }

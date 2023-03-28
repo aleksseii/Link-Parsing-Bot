@@ -16,6 +16,7 @@ public final class UpdateController {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public @NotNull LinkUpdateResponse sendUpdate(@NotNull LinkUpdateRequest request) {
+
         return new LinkUpdateResponse("Update has been successfully handled", HttpStatus.OK);
     }
 }

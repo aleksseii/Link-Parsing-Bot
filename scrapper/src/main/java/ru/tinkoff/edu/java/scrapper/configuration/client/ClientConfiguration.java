@@ -1,6 +1,7 @@
 package ru.tinkoff.edu.java.scrapper.configuration.client;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,7 @@ import ru.tinkoff.edu.java.scrapper.client.clients.GitHubClient;
 import ru.tinkoff.edu.java.scrapper.client.clients.GitHubClientImpl;
 import ru.tinkoff.edu.java.scrapper.client.clients.StackOverflowClient;
 import ru.tinkoff.edu.java.scrapper.client.clients.StackOverflowClientImpl;
+import ru.tinkoff.edu.java.scrapper.configuration.ApplicationConfig;
 
 @Validated
 @Configuration
@@ -25,12 +27,17 @@ public class ClientConfiguration {
     }
 
     @Bean
-    public GitHubClient getGitHubClient() {
+    public @NotNull GitHubClient getGitHubClient() {
         return new GitHubClientImpl(gitHubBaseUrl);
     }
 
     @Bean
-    public StackOverflowClient getStackOverflowClient() {
+    public @NotNull StackOverflowClient getStackOverflowClient() {
         return new StackOverflowClientImpl(stackOverflowBaseUrl);
+    }
+
+    @Bean
+    public long schedulerIntervalMillis(@NotNull ApplicationConfig config) {
+        return config.scheduler().interval().toMillis();
     }
 }

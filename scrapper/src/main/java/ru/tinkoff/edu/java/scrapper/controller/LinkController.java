@@ -31,6 +31,7 @@ public final class LinkController {
         return new LinkResponse(chatId, URI.create("/stub"));
     }
 
+    @DeleteMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public @NotNull LinkResponse remove(@RequestHeader("Tg-Chat-Id") @Positive long chatId,
                                         @RequestBody @NotNull RemoveLinkRequest request) {
 

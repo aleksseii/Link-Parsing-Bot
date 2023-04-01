@@ -1,7 +1,8 @@
 package ru.tinkoff.edu.java.scrapper.dto;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
-import org.jetbrains.annotations.NotNull;
+
 
 import java.util.List;
 

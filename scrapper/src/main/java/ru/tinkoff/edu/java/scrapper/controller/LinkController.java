@@ -9,7 +9,6 @@ import ru.tinkoff.edu.java.scrapper.dto.ListLinksResponse;
 import ru.tinkoff.edu.java.scrapper.dto.RemoveLinkRequest;
 import ru.tinkoff.edu.java.scrapper.exception.NoSuchLinkException;
 
-import java.net.URI;
 import java.util.ArrayList;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -28,13 +27,13 @@ public final class LinkController {
     public @NotNull LinkResponse add(@RequestHeader("Tg-Chat-Id") @Positive long chatId,
                                      @RequestBody @NotNull AddLinkRequest request) {
 
-        return new LinkResponse(chatId, URI.create("/stub"));
+        return new LinkResponse(chatId, request.url());
     }
 
     @DeleteMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public @NotNull LinkResponse remove(@RequestHeader("Tg-Chat-Id") @Positive long chatId,
                                         @RequestBody @NotNull RemoveLinkRequest request) {
 
-        throw new NoSuchLinkException("Such link does not exist");
+        throw new NoSuchLinkException(String.format("Such link: `%s` does not exist", request.url()));
     }
 }

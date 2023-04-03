@@ -1,18 +1,18 @@
 package ru.tinkoff.edu.java.scrapper.client.clients;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.tinkoff.edu.java.scrapper.client.dto.StackOverflowQuestionResponse;
 
 public final class StackOverflowClientImpl implements StackOverflowClient {
 
-    private static final @NotBlank String BASE_URL = "https://api.stackexchange.com/2.3";
+    private static final @NotNull String BASE_URL = "https://api.stackexchange.com/2.3";
 
-    private static final @NotBlank String QUESTION_URL = "/questions/{id}";
+    private static final @NotNull String QUESTION_URL = "/questions/{id}";
 
-    private final @NotBlank String baseUrl;
+    private final @NotNull String baseUrl;
 
     private WebClient webClient;
 
@@ -20,7 +20,7 @@ public final class StackOverflowClientImpl implements StackOverflowClient {
         this(BASE_URL);
     }
 
-    public StackOverflowClientImpl(@NotBlank String baseUrl) {
+    public StackOverflowClientImpl(@NotNull String baseUrl) {
         this.baseUrl = baseUrl;
     }
 

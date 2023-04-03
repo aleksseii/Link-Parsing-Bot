@@ -1,6 +1,5 @@
 package ru.tinkoff.edu.java.scrapper.configuration.client;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,11 +15,11 @@ import ru.tinkoff.edu.java.scrapper.configuration.ApplicationConfig;
 @Configuration
 public class ClientConfiguration {
 
-    private final @NotBlank String gitHubBaseUrl;
-    private final @NotBlank String stackOverflowBaseUrl;
+    private final @NotNull String gitHubBaseUrl;
+    private final @NotNull String stackOverflowBaseUrl;
 
-    public ClientConfiguration(@Value("$client.base-url.github") @NotBlank String gitHubBaseUrl,
-                               @Value("$client.base-url.stackoverflow") @NotBlank String stackOverflowBaseUrl) {
+    public ClientConfiguration(@Value("$client.base-url.github") @NotNull String gitHubBaseUrl,
+                               @Value("$client.base-url.stackoverflow") @NotNull String stackOverflowBaseUrl) {
 
         this.gitHubBaseUrl = gitHubBaseUrl;
         this.stackOverflowBaseUrl = stackOverflowBaseUrl;

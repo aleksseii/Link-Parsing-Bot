@@ -9,9 +9,9 @@ import java.util.List;
 
 public record ApiErrorResponse(@NotNull String description,
                                @NotBlank String statusCode,
-                               @NotNull Class<? extends Exception> exceptionName,
-                               @NotBlank String exceptionMessage,
-                               @NotNull List<@NotBlank String> stacktrace) {
+                               Class<? extends Exception> exceptionName,
+                               String exceptionMessage,
+                               List<@NotBlank String> stacktrace) {
 
     public ApiErrorResponse(@NotNull String description,
                             @NotNull HttpStatus statusCode,
@@ -24,6 +24,17 @@ public record ApiErrorResponse(@NotNull String description,
                 Arrays.stream(exception.getStackTrace())
                         .map(StackTraceElement::toString)
                         .toList()
+        );
+    }
+
+    public ApiErrorResponse(@NotNull String description,
+                            @NotBlank HttpStatus statusCode) {
+        this(
+                description,
+                statusCode.toString(),
+                null,
+                null,
+                null
         );
     }
 }

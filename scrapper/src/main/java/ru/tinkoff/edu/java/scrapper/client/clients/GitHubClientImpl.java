@@ -2,16 +2,17 @@ package ru.tinkoff.edu.java.scrapper.client.clients;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.tinkoff.edu.java.scrapper.client.dto.GitHubRepoResponse;
 
 public final class GitHubClientImpl implements GitHubClient {
 
-    private static final @NotBlank String BASE_URL = "https://api.github.com";
+    private static final @NotNull String BASE_URL = "https://api.github.com";
 
-    private static final @NotBlank String REPO_URL = "/repos/{owner}/{repo}";
+    private static final @NotNull String REPO_URL = "/repos/{owner}/{repo}";
 
-    private final @NotBlank String baseUrl;
+    private final @NotNull String baseUrl;
 
     private WebClient webClient;
 
@@ -19,7 +20,7 @@ public final class GitHubClientImpl implements GitHubClient {
         this(BASE_URL);
     }
 
-    public GitHubClientImpl(@NotBlank String baseUrl) {
+    public GitHubClientImpl(@NotNull String baseUrl) {
         this.baseUrl = baseUrl;
     }
 

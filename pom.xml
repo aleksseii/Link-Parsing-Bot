@@ -19,14 +19,17 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
 
-        <spring-boot.version>3.0.1</spring-boot.version>
+        <spring-boot.version>3.0.4</spring-boot.version>
         <spring-framework.version>6.0.5</spring-framework.version>
         <spring-cloud.version>2022.0.0</spring-cloud.version>
         <spring-doc-openapi.version>2.0.4</spring-doc-openapi.version>
-        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
         <slf4j.version>2.0.6</slf4j.version>
+        <projectlombok.version>1.18.24</projectlombok.version>
+        <jetbrains-annotations.version>23.1.0</jetbrains-annotations.version>
     </properties>
 
     <dependencyManagement>
@@ -113,14 +116,14 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
+            <version>${projectlombok.version}</version>
             <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>23.1.0</version>
+            <version>${jetbrains-annotations.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

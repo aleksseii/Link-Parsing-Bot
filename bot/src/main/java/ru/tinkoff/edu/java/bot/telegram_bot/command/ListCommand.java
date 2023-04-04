@@ -11,7 +11,13 @@ public final class ListCommand extends Command {
 
     @Override
     public SendMessage handle(@NotNull Update update) {
-        return null;
+        if (!supports(update)) {
+            return nextCommand.handle(update);
+        }
+        long chatId = update.getMessage().getChatId();
+
+        // TODO: 04.04.2023 implement listing all the tracking links after introducing database
+        return nextCommand.handle(update);
     }
 
     @Override

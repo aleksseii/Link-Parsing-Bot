@@ -11,7 +11,17 @@ public final class HelpCommand extends Command {
 
     @Override
     public SendMessage handle(@NotNull Update update) {
-        return null;
+        if (!supports(update)) {
+            return nextCommand.handle(update);
+        }
+        long chatId = update.getMessage().getChatId();
+
+        SendMessage respond = new SendMessage();
+        respond.setChatId(chatId);
+        respond.setText("");
+
+        // TODO: 04.04.2023 implement sending help message
+        return nextCommand.handle(update);
     }
 
     @Override

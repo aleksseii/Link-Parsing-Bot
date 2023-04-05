@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.annotation.Validated;
-import ru.tinkoff.edu.java.scrapper.client.clients.GitHubClient;
-import ru.tinkoff.edu.java.scrapper.client.clients.GitHubClientImpl;
-import ru.tinkoff.edu.java.scrapper.client.clients.StackOverflowClient;
-import ru.tinkoff.edu.java.scrapper.client.clients.StackOverflowClientImpl;
+import ru.tinkoff.edu.java.scrapper.client.GitHubClient;
+import ru.tinkoff.edu.java.scrapper.client.GitHubClientImpl;
+import ru.tinkoff.edu.java.scrapper.client.StackOverflowClient;
+import ru.tinkoff.edu.java.scrapper.client.StackOverflowClientImpl;
 import ru.tinkoff.edu.java.scrapper.configuration.ApplicationConfig;
 
 @Validated

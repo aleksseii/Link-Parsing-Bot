@@ -13,9 +13,7 @@ import ru.tinkoff.edu.java.bot.telegram_bot.TelegramBot;
 
 @Slf4j
 @Component
-public final class BotInitializer {
-
-    private final @NotNull TelegramBot bot;
+public record BotInitializer(@NotNull TelegramBot bot) {
 
     @Autowired
     public BotInitializer(TelegramBot bot) {
@@ -23,7 +21,7 @@ public final class BotInitializer {
     }
 
     @EventListener(ContextRefreshedEvent.class)
-    public void init() {
+    public void initialize() {
 
         try {
             TelegramBotsApi tgBotsApi = new TelegramBotsApi(DefaultBotSession.class);

@@ -26,12 +26,12 @@ public class ClientConfiguration {
     }
 
     @Bean
-    public @NotNull GitHubClient getGitHubClient() {
+    public @NotNull GitHubClient gitHubClient() {
         return new GitHubClientImpl(gitHubBaseUrl);
     }
 
     @Bean
-    public @NotNull StackOverflowClient getStackOverflowClient() {
+    public @NotNull StackOverflowClient stackOverflowClient() {
         return new StackOverflowClientImpl(stackOverflowBaseUrl);
     }
 

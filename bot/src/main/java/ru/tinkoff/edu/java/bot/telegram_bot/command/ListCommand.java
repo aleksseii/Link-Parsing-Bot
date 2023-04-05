@@ -12,7 +12,7 @@ public final class ListCommand extends Command {
     private static final @NotNull CommandType TYPE = CommandType.LIST;
 
     @Override
-    public SendMessage handle(@NotNull Update update) {
+    public @NotNull SendMessage handle(@NotNull Update update) {
         if (supports(update)) {
             SendMessage response = new SendMessage();
             response.setText(buildListMessage());

@@ -13,13 +13,14 @@ public final class TrackCommand extends Command {
     private static final @NotNull CommandType TYPE = CommandType.TRACK;
 
     private static final @NotNull String TRACKING_LINK_RESPONSE_TEXT = "Started tracking link: %s";
+    private static final @NotNull String SPACE = " ";
 
     @SuppressWarnings("DuplicatedCode")
     @Override
-    public SendMessage handle(@NotNull Update update) {
+    public @NotNull SendMessage handle(@NotNull Update update) {
         if (supports(update)) {
             Message message = update.getMessage();
-            String[] commandArgs = message.getText().split(" ");
+            String[] commandArgs = message.getText().split(SPACE);
 
             if (commandArgs.length > 1) {
                 SendMessage response = new SendMessage();

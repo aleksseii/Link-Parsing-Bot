@@ -16,7 +16,7 @@ public final class HelpCommand extends Command {
     private static final @NotNull CommandType TYPE = HELP;
 
     @Override
-    public SendMessage handle(@NotNull Update update) {
+    public @NotNull SendMessage handle(@NotNull Update update) {
         if (supports(update)) {
             SendMessage respond = new SendMessage();
             respond.setText(buildHelpMessage());

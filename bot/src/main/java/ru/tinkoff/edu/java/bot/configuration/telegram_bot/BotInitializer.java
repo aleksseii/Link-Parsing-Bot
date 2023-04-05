@@ -1,6 +1,7 @@
 package ru.tinkoff.edu.java.bot.configuration.telegram_bot;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -10,6 +11,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import ru.tinkoff.edu.java.bot.telegram_bot.TelegramBot;
 
+@Slf4j
 @Component
 public final class BotInitializer {
 
@@ -27,7 +29,7 @@ public final class BotInitializer {
             TelegramBotsApi tgBotsApi = new TelegramBotsApi(DefaultBotSession.class);
             tgBotsApi.registerBot(bot);
         } catch (TelegramApiException e) {
-            // TODO: 04.04.2023 configure logging here
+            log.error("Could not register bot");
         }
     }
 }

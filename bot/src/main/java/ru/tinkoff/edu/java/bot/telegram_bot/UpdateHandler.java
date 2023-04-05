@@ -11,9 +11,6 @@ import ru.tinkoff.edu.java.bot.telegram_bot.command.factory.CommandChainFactory;
 @Service
 public final class UpdateHandler {
 
-    private static final @NotNull String UNSUPPORTED_COMMAND_RESPONSE_TEXT =
-            "This command is not supported.\r\nType `/help` for more info";
-
     private final @NotNull Command commandChain;
 
     public UpdateHandler() {
@@ -22,10 +19,6 @@ public final class UpdateHandler {
 
     public @NotNull SendMessage handle(@NotNull Update update) {
         SendMessage response = commandChain.handle(update);
-        if (response == null) {
-            response = new SendMessage();
-            response.setText(UNSUPPORTED_COMMAND_RESPONSE_TEXT);
-        }
         response.setChatId(update.getMessage().getChatId());
 
         return response;

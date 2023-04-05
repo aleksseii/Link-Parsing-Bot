@@ -14,7 +14,7 @@ public final class StartCommand extends Command {
     private static final @NotNull String REGISTER_NEW_USER_RESPONSE_TEXT = "Registering new user";
 
     @Override
-    public SendMessage handle(@NotNull Update update) {
+    public @NotNull SendMessage handle(@NotNull Update update) {
         if (supports(update)) {
             SendMessage response = new SendMessage();
             response.setText(REGISTER_NEW_USER_RESPONSE_TEXT);

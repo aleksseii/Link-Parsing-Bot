@@ -12,13 +12,14 @@ public final class UntrackCommand extends Command {
     private static final @NotNull CommandType TYPE = CommandType.UNTRACK;
 
     private static final @NotNull String UNTRACKING_LINK_RESPONSE_TEXT = "Untracked link: %s";
+    private static final String SPACE = " ";
 
     @SuppressWarnings("DuplicatedCode")
     @Override
-    public SendMessage handle(@NotNull Update update) {
+    public @NotNull SendMessage handle(@NotNull Update update) {
         if (supports(update)) {
             String messageText = update.getMessage().getText();
-            String[] commandArgs = messageText.split(" ");
+            String[] commandArgs = messageText.split(SPACE);
 
             if (commandArgs.length > 1) {
                 SendMessage response = new SendMessage();

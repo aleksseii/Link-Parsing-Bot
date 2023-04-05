@@ -11,7 +11,7 @@ public final class CommandChainFactory {
         Command track = new TrackCommand();
         Command untrack = new UntrackCommand();
         Command list = new ListCommand();
-        Command empty = new EmptyCommand();
+        Command empty = new UnsupportedCommand();
 
         start.setNextCommand(help);
         help.setNextCommand(track);

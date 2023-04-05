@@ -4,9 +4,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import ru.tinkoff.edu.java.bot.telegram_bot.command.enums.AllCommandTypes;
 import ru.tinkoff.edu.java.bot.telegram_bot.command.enums.CommandType;
-
-import java.util.List;
 
 import static ru.tinkoff.edu.java.bot.telegram_bot.command.enums.CommandType.*;
 
@@ -35,8 +34,7 @@ public final class HelpCommand extends Command {
     private static @NotNull String buildHelpMessage() {
 
         StringBuilder sb = new StringBuilder("Supported commands:\r\n");
-        for (CommandType command :
-                List.of(START, HELP, TRACK, UNTRACK, LIST)) {
+        for (CommandType command : AllCommandTypes.get()) {
 
             sb.append(
                     String.format("%s — %s", command.getCommandName(), command.getDescription())

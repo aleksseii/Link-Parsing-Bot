@@ -3,6 +3,7 @@ package ru.tinkoff.edu.java.bot.telegram_bot.command.enums;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 
 public enum CommandType {
 
@@ -26,5 +27,9 @@ public enum CommandType {
     public boolean supports(@NotNull Update update) {
         final String text = update.getMessage().getText();
         return text.startsWith("/" + this.name().toLowerCase());
+    }
+
+    public BotCommand toBotCommand() {
+        return new BotCommand("/" + this.name().toLowerCase(), this.getDescription());
     }
 }

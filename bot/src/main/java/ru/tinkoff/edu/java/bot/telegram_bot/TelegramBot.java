@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.tinkoff.edu.java.bot.configuration.ApplicationConfig;
@@ -33,19 +32,13 @@ public final class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-
-        Message message = update.getMessage();
-
-        SendMessage response = new SendMessage();
-        response.setChatId(message.getChatId().toString());
-        response.setText("Hello from bot");
-        sendAnswerMessage(response);
-
-        System.out.println(message.getText());
-        log.info(String.format("incoming message: `%s`", message.getText()));
+        if (update.hasMessage()) {
+            SendMessage response = updateHandler.handle(update);
+            sendResponse(response);
+        }
     }
 
-    private void sendAnswerMessage(@NotNull SendMessage response) {
+    private void sendResponse(@NotNull SendMessage response) {
         try {
             execute(response);
         } catch (TelegramApiException e) {

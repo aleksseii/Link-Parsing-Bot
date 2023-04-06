@@ -9,6 +9,4 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties(prefix = "bot", ignoreUnknownFields = false)
 public record ApplicationConfig(@NotNull String username,
                                 @NotNull String token) {
-
-
 }

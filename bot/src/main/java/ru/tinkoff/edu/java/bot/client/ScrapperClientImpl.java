@@ -3,7 +3,9 @@ package ru.tinkoff.edu.java.bot.client;
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -12,9 +14,10 @@ import ru.tinkoff.edu.java.bot.dto.client.LinkResponse;
 import ru.tinkoff.edu.java.bot.dto.client.ListLinksResponse;
 import ru.tinkoff.edu.java.bot.dto.client.RemoveLinkRequest;
 
+@Component
 public final class ScrapperClientImpl implements ScrapperClient {
 
-    private static final @NotNull String BASE_URL = "localhost:8081";
+    private static final @NotNull String BASE_URL = "http://localhost:8081";
 
     private static final @NotNull String TG_CHAT_URL = "/tg-chat/{id}";
     private static final @NotNull String LINKS_URL = "/links";
@@ -28,7 +31,7 @@ public final class ScrapperClientImpl implements ScrapperClient {
         this(BASE_URL);
     }
 
-    public ScrapperClientImpl(@NotNull String baseUrl) {
+    public ScrapperClientImpl(@Value("${client.base-url.scrapper.host}") @NotNull String baseUrl) {
         this.baseUrl = baseUrl;
     }
 

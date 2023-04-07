@@ -57,7 +57,7 @@ public final class ListCommand extends Command {
         final StringBuilder sb = new StringBuilder("Tracking links:\r\n");
         for (LinkResponse response : linkResponses) {
             URI url = response.url();
-            sb.append(url.toString()).append("\r\n");
+            sb.append("\t").append(url.toString()).append("\r\n");
         }
 
         log.info("Showed fulfilled list of tracking link");

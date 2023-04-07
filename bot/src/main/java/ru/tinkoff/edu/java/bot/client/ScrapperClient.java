@@ -7,7 +7,7 @@ import ru.tinkoff.edu.java.bot.dto.client.LinkResponse;
 import ru.tinkoff.edu.java.bot.dto.client.ListLinksResponse;
 import ru.tinkoff.edu.java.bot.dto.client.RemoveLinkRequest;
 
-public sealed interface ScrapperClient permits ScrapperClientImpl {
+public interface ScrapperClient {
 
     boolean registerChat(@Positive long chatId);
 

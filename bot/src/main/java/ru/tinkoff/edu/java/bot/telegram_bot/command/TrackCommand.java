@@ -3,6 +3,7 @@ package ru.tinkoff.edu.java.bot.telegram_bot.command;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -16,6 +17,7 @@ import java.net.URI;
 
 @Slf4j
 @Component
+@Order(3)
 public final class TrackCommand extends Command {
 
     private static final @NotNull CommandType TYPE = CommandType.TRACK;

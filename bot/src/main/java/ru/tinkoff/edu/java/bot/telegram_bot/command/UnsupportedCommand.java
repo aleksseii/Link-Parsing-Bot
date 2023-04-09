@@ -2,12 +2,14 @@ package ru.tinkoff.edu.java.bot.telegram_bot.command;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Slf4j
 @Component
+@Order(6)
 public final class UnsupportedCommand extends Command {
 
     private static final @NotNull String UNSUPPORTED_COMMAND_RESPONSE_TEXT =

@@ -32,25 +32,13 @@ class ListCommandTest {
 
     private static final @NotNull String NO_TRACKING_LINKS_RESPONSE_TEXT =
             "You are not tracking any links right now\r\n";
-    private static final String TRACKING_LINKS_PREFIX = "Tracking links:\r\n";
+    private static final @NotNull String TRACKING_LINKS_PREFIX = "Tracking links:\r\n";
 
     @InjectMocks
     private @NotNull ListCommand listCommand;
 
     @Mock
     private @NotNull ScrapperClient client;
-
-    @NotNull Update getUpdateValidCommand() {
-        Update update = new Update();
-
-        Message tgMessage = new Message();
-        Chat tgChat = new Chat(EXPECTED_CHAT_ID, "private");
-        tgMessage.setChat(tgChat);
-        tgMessage.setText(VALID_MESSAGE_TEXT);
-
-        update.setMessage(tgMessage);
-        return update;
-    }
 
     @ParameterizedTest
     @ValueSource(ints = { 1, 5, 10, 100 , 500 })
@@ -83,7 +71,19 @@ class ListCommandTest {
         assertEquals(actualText, NO_TRACKING_LINKS_RESPONSE_TEXT);
     }
 
-    private ListLinksResponse getListLinksResponse(int size) {
+    private @NotNull Update getUpdateValidCommand() {
+        Update update = new Update();
+
+        Message tgMessage = new Message();
+        Chat tgChat = new Chat(EXPECTED_CHAT_ID, "private");
+        tgMessage.setChat(tgChat);
+        tgMessage.setText(VALID_MESSAGE_TEXT);
+
+        update.setMessage(tgMessage);
+        return update;
+    }
+
+    private @NotNull ListLinksResponse getListLinksResponse(int size) {
         final String linkPrefix = "https://link-";
 
         List<LinkResponse> linkResponses = new ArrayList<>(size);

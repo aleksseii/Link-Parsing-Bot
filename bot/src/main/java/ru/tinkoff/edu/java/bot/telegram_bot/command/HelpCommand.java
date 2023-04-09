@@ -5,10 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.tinkoff.edu.java.bot.telegram_bot.command.enums.AllCommandTypes;
 import ru.tinkoff.edu.java.bot.telegram_bot.command.enums.CommandType;
 
-import static ru.tinkoff.edu.java.bot.telegram_bot.command.enums.CommandType.*;
+import static ru.tinkoff.edu.java.bot.telegram_bot.command.enums.CommandType.HELP;
 
 @Slf4j
 @Component
@@ -36,13 +35,12 @@ public final class HelpCommand extends Command {
     private static @NotNull String buildHelpMessage() {
 
         StringBuilder sb = new StringBuilder("Supported commands:\r\n");
-        for (CommandType command : AllCommandTypes.get()) {
+        for (CommandType command : CommandType.values()) {
 
             sb.append(
                     String.format("%s — %s", command.getCommandName(), command.getDescription())
             ).append("\r\n");
         }
-
         return sb.toString();
     }
 }

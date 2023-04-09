@@ -23,11 +23,13 @@ class UnsupportedCommandTest {
 
     @BeforeEach
     void setCommandChain() {
-        Command start = new StartCommand(new ScrapperClientImpl());
+        final ScrapperClientImpl defaultClient = new ScrapperClientImpl();
+
+        Command start = new StartCommand(defaultClient);
         Command help = new HelpCommand();
-        Command track = new TrackCommand(new ScrapperClientImpl());
-        Command untrack = new UntrackCommand(new ScrapperClientImpl());
-        Command list = new ListCommand(new ScrapperClientImpl());
+        Command track = new TrackCommand(defaultClient);
+        Command untrack = new UntrackCommand(defaultClient);
+        Command list = new ListCommand(defaultClient);
         Command unsupported = new UnsupportedCommand();
 
         start.setNextCommand(help);
@@ -49,7 +51,7 @@ class UnsupportedCommandTest {
         assertEquals(actualText, UNSUPPORTED_COMMAND_RESPONSE_TEXT);
     }
 
-    @NotNull Update getUpdateInvalidCommand() {
+    private @NotNull Update getUpdateInvalidCommand() {
         Update update = new Update();
 
         Message tgMessage = new Message();

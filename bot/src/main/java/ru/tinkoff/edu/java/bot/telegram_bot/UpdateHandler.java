@@ -14,7 +14,7 @@ public final class UpdateHandler {
 
     private final @NotNull Command commandChain;
 
-    public UpdateHandler(ConfigurableApplicationContext context) {
+    public UpdateHandler(@NotNull ConfigurableApplicationContext context) {
         this.commandChain = CommandChainFactory.create(context);
     }
 

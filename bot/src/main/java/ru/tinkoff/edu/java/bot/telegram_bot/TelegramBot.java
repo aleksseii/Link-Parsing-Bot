@@ -13,9 +13,9 @@ import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.tinkoff.edu.java.bot.configuration.ApplicationConfig;
-import ru.tinkoff.edu.java.bot.telegram_bot.command.enums.AllCommandTypes;
 import ru.tinkoff.edu.java.bot.telegram_bot.command.enums.CommandType;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -36,7 +36,7 @@ public final class TelegramBot extends TelegramLongPollingBot {
     @PostConstruct
     public void initializeMenu() {
 
-        List<BotCommand> botCommands = AllCommandTypes.get().stream()
+        List<BotCommand> botCommands = Arrays.stream(CommandType.values())
                 .map(CommandType::toBotCommand)
                 .toList();
 

@@ -6,7 +6,7 @@ import ru.tinkoff.edu.java.bot.telegram_bot.command.*;
 
 public final class CommandChainFactory {
 
-    public static @NotNull Command create(ConfigurableApplicationContext context) {
+    public static @NotNull Command create(@NotNull ConfigurableApplicationContext context) {
 
         Command start = context.getBean("startCommand", Command.class);
         Command help = context.getBean("helpCommand", Command.class);

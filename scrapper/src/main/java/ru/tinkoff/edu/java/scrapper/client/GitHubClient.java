@@ -1,7 +1,7 @@
-package ru.tinkoff.edu.java.scrapper.client.clients;
+package ru.tinkoff.edu.java.scrapper.client;
 
 import jakarta.validation.constraints.NotBlank;
-import ru.tinkoff.edu.java.scrapper.client.dto.GitHubRepoResponse;
+import ru.tinkoff.edu.java.scrapper.dto.client.GitHubRepoResponse;
 
 public sealed interface GitHubClient permits GitHubClientImpl {
 

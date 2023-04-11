@@ -1,10 +1,10 @@
-package ru.tinkoff.edu.java.scrapper.client.clients;
+package ru.tinkoff.edu.java.scrapper.client;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.web.reactive.function.client.WebClient;
-import ru.tinkoff.edu.java.scrapper.client.dto.GitHubRepoResponse;
+import ru.tinkoff.edu.java.scrapper.dto.client.GitHubRepoResponse;
 
 public final class GitHubClientImpl implements GitHubClient {
 

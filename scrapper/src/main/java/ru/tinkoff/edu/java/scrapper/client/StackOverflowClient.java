@@ -1,7 +1,7 @@
-package ru.tinkoff.edu.java.scrapper.client.clients;
+package ru.tinkoff.edu.java.scrapper.client;
 
 import jakarta.validation.constraints.Positive;
-import ru.tinkoff.edu.java.scrapper.client.dto.StackOverflowQuestionResponse;
+import ru.tinkoff.edu.java.scrapper.dto.client.StackOverflowQuestionResponse;
 
 public sealed interface StackOverflowClient permits StackOverflowClientImpl {
 

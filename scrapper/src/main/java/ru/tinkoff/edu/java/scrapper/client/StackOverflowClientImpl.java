@@ -1,10 +1,10 @@
-package ru.tinkoff.edu.java.scrapper.client.clients;
+package ru.tinkoff.edu.java.scrapper.client;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.web.reactive.function.client.WebClient;
-import ru.tinkoff.edu.java.scrapper.client.dto.StackOverflowQuestionResponse;
+import ru.tinkoff.edu.java.scrapper.dto.client.StackOverflowQuestionResponse;
 
 public final class StackOverflowClientImpl implements StackOverflowClient {
 

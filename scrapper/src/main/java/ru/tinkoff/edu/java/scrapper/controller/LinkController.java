@@ -17,21 +17,23 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("/links")
 public final class LinkController {
 
+    private static final @NotNull String LINKS_HEADER_NAME = "Tg-Chat-Id";
+
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public @NotNull ListLinksResponse getAll(@RequestHeader("Tg-Chat-Id") @Positive long chatId) {
+    public @NotNull ListLinksResponse getAll(@RequestHeader(LINKS_HEADER_NAME) @Positive long chatId) {
 
         return new ListLinksResponse(new ArrayList<>(), 0);
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public @NotNull LinkResponse add(@RequestHeader("Tg-Chat-Id") @Positive long chatId,
+    public @NotNull LinkResponse add(@RequestHeader(LINKS_HEADER_NAME) @Positive long chatId,
                                      @RequestBody @NotNull AddLinkRequest request) {
 
         return new LinkResponse(chatId, request.url());
     }
 
     @DeleteMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public @NotNull LinkResponse remove(@RequestHeader("Tg-Chat-Id") @Positive long chatId,
+    public @NotNull LinkResponse remove(@RequestHeader(LINKS_HEADER_NAME) @Positive long chatId,
                                         @RequestBody @NotNull RemoveLinkRequest request) {
 
         throw new NoSuchLinkException(String.format("Such link: `%s` does not exist", request.url()));

@@ -26,7 +26,10 @@
         <spring-cloud.version>2022.0.0</spring-cloud.version>
         <spring-doc-openapi.version>2.0.4</spring-doc-openapi.version>
 
+        <postgresql.version>42.6.0</postgresql.version>
+        <liquibase.version>4.21.1</liquibase.version>
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
+        <testcontainers.version>1.17.6</testcontainers.version>
         <slf4j.version>2.0.6</slf4j.version>
         <projectlombok.version>1.18.24</projectlombok.version>
         <jetbrains-annotations.version>23.1.0</jetbrains-annotations.version>
@@ -76,6 +79,21 @@
                 <version>${spring-doc-openapi.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>${liquibase.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>${testcontainers.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -112,7 +130,6 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -132,6 +149,27 @@
             <version>${jetbrains-annotations.version}</version>
             <scope>provided</scope>
         </dependency>
+
+<!--        Database dependencies        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <version>${spring-boot.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

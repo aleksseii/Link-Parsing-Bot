@@ -7,6 +7,7 @@ import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.DirectoryResourceAccessor;
+import lombok.extern.slf4j.Slf4j;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.io.FileNotFoundException;
@@ -16,6 +17,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+@Slf4j
 public class IntegrationEnvironment {
 
     private static final @NotNull String POSTGRES_IMAGE_NAME = "postgres:15";
@@ -28,7 +30,6 @@ public class IntegrationEnvironment {
     static {
         POSTGRES_CONTAINER = new PostgreSQLContainer<>(POSTGRES_IMAGE_NAME);
         POSTGRES_CONTAINER.start();
-
 
         try {
             final Connection connection = getConnection();
@@ -49,11 +50,12 @@ public class IntegrationEnvironment {
                     new LabelExpression()
             );
         } catch (SQLException | FileNotFoundException | LiquibaseException e) {
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
 
-    static Connection getConnection() throws SQLException {
+    protected static @NotNull Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
                 POSTGRES_CONTAINER.getJdbcUrl(),
                 POSTGRES_CONTAINER.getUsername(),

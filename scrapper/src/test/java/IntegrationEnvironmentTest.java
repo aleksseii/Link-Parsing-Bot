@@ -1,5 +1,4 @@
 import jakarta.validation.constraints.NotNull;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
@@ -9,36 +8,39 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-class IntegrationEnvironmentTest {
+import static org.testcontainers.shaded.org.hamcrest.MatcherAssert.assertThat;
+import static org.testcontainers.shaded.org.hamcrest.Matchers.containsInAnyOrder;
 
-    private static final @NotNull String SELECT_ALL_TABLES = """
+class IntegrationEnvironmentTest extends IntegrationEnvironment {
+
+    private static final @NotNull String SELECT_ALL_TABLES_NAMES = """
             SELECT table_name
-            FROM information_schema.tables
-            WHERE table_schema = 'public' AND table_catalog = CURRENT_DATABASE()
+              FROM information_schema.tables
+             WHERE table_schema = 'public'
+               AND table_catalog = CURRENT_DATABASE()
             """;
 
     @Test
     void when_ContainerStarted_Expect_AllTablesCreated() throws SQLException {
-        Connection connection = IntegrationEnvironment.getConnection();
+        Connection connection = getConnection();
         Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(SELECT_ALL_TABLES);
+        ResultSet resultSet = statement.executeQuery(SELECT_ALL_TABLES_NAMES);
 
-        Assertions.assertTrue(
-                getTableNames(result)
-                        .containsAll(List.of(
-                                "chat",
-                                "link",
-                                "chat_link",
-                                "databasechangelog",
-                                "databasechangeloglock"
-                        ))
-        );
+        List<String> actualTableNames = getTableNames(resultSet);
+
+        assertThat(actualTableNames, containsInAnyOrder(
+                "chat",
+                "link",
+                "chat_link",
+                "databasechangelog",
+                "databasechangeloglock"
+        ));
     }
 
-    private List<String> getTableNames(ResultSet result) throws SQLException {
+    private static @NotNull List<@NotNull String> getTableNames(@NotNull ResultSet resultSet) throws SQLException {
         List<String> tableNames = new ArrayList<>();
-        while (result.next()) {
-            tableNames.add(result.getString("TABLE_NAME"));
+        while (resultSet.next()) {
+            tableNames.add(resultSet.getString("TABLE_NAME"));
         }
         return tableNames;
     }

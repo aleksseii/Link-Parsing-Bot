@@ -1,14 +1,15 @@
 -- noinspection SqlNoDataSourceInspectionForFile
 
 CREATE TABLE IF NOT EXISTS chat(
-    chat_id         BIGINT      NOT NULL,
+    chat_id         BIGINT      UNIQUE      NOT NULL
+        CONSTRAINT positive_id CHECK (chat_id > 0),
 
     CONSTRAINT chat_pk PRIMARY KEY(chat_id)
 );
 
 CREATE TABLE IF NOT EXISTS link(
-    link_id         BIGSERIAL       NOT NULL,
-    url             VARCHAR         NOT NULL,
+    link_id         BIGSERIAL               NOT NULL,
+    url             VARCHAR     UNIQUE      NOT NULL,
 
     CONSTRAINT link_pk PRIMARY KEY(link_id)
 );

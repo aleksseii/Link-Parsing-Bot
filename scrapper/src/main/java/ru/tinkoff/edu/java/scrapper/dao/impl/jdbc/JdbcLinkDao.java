@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.scrapper.dao.impl;
+package ru.tinkoff.edu.java.scrapper.dao.impl.jdbc;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -10,13 +10,17 @@ import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.dao.LinkDao;
 import ru.tinkoff.edu.java.scrapper.dto.entity.Link;
 
+import java.net.URI;
 import java.util.List;
 
-@SuppressWarnings("SqlNoDataSourceInspection")
+@SuppressWarnings({ "SqlNoDataSourceInspection", "SqlResolve", "SqlCheckUsingColumns" })
 @Repository
 @RequiredArgsConstructor
-public final class LinkDaoImpl implements LinkDao {
+public final class JdbcLinkDao implements LinkDao {
 
+    private static final @NotNull RowMapper<Link> LINK_ROW_MAPPER = new DataClassRowMapper<>(Link.class);
+
+//    --- SELECT queries ---
     private static final @NotNull String SELECT_LINK_BY_ID_QUERY = """
             SELECT *
               FROM link
@@ -28,24 +32,37 @@ public final class LinkDaoImpl implements LinkDao {
               FROM link
             """;
 
+    private static final @NotNull String SELECT_LINKS_BY_CHAT_ID = """
+            SELECT l.link_id, l.url
+              FROM link           AS l
+                   JOIN chat_link AS c_l USING(link_id)
+             WHERE c_l.chat_id = ?
+            """;
+
+//    --- INSERT queries ---
     private static final @NotNull String INSERT_NEW_LINK_QUERY = """
             INSERT INTO link(url)
             VALUES (?)
             """;
 
-    private static final @NotNull String DELETE_LINK_QUERY = """
+//    --- DELETE queries ---
+    private static final @NotNull String DELETE_LINK_BY_ID_QUERY = """
             DELETE
               FROM link
              WHERE link_id = ?
             """;
 
-    private static final @NotNull RowMapper<Link> LINK_ROW_MAPPER = new DataClassRowMapper<>(Link.class);
+    private static final @NotNull String DELETE_LINK_BY_URL_QUERY = """
+            DELETE
+              FROM link
+             WHERE url = ?
+            """;
 
     private final @NotNull JdbcTemplate jdbcTemplate;
 
     @Override
-    public Link get(long id) {
-        return jdbcTemplate.query(SELECT_LINK_BY_ID_QUERY, LINK_ROW_MAPPER, id)
+    public Link get(long linkId) {
+        return jdbcTemplate.query(SELECT_LINK_BY_ID_QUERY, LINK_ROW_MAPPER, linkId)
                 .stream()
                 .findAny()
                 .orElse(null);
@@ -57,12 +74,22 @@ public final class LinkDaoImpl implements LinkDao {
     }
 
     @Override
+    public List<@NotNull Link> getByChatId(@Positive long chatId) {
+        return jdbcTemplate.query(SELECT_LINKS_BY_CHAT_ID, LINK_ROW_MAPPER, chatId);
+    }
+
+    @Override
     public void save(@NotNull Link element) {
         jdbcTemplate.update(INSERT_NEW_LINK_QUERY, element.url().toString());
     }
 
     @Override
     public void delete(@Positive long id) {
-        jdbcTemplate.update(DELETE_LINK_QUERY, id);
+        jdbcTemplate.update(DELETE_LINK_BY_ID_QUERY, id);
+    }
+
+    @Override
+    public void delete(@NotNull URI url) {
+        jdbcTemplate.update(DELETE_LINK_BY_URL_QUERY, url.toString());
     }
 }

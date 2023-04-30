@@ -80,7 +80,7 @@ public final class JdbcLinkDao implements LinkDao {
 
     @Override
     public void save(@NotNull Link element) {
-        jdbcTemplate.update(INSERT_NEW_LINK_QUERY, element.url().toString());
+        jdbcTemplate.update(INSERT_NEW_LINK_QUERY, element.getUrl().toString());
     }
 
     @Override

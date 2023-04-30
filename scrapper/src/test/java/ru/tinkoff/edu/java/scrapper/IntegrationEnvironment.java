@@ -1,3 +1,5 @@
+package ru.tinkoff.edu.java.scrapper;
+
 import jakarta.validation.constraints.NotNull;
 import liquibase.Contexts;
 import liquibase.LabelExpression;

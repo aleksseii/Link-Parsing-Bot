@@ -2,7 +2,7 @@ package ru.tinkoff.edu.java.scrapper.dao.impl.jdbc;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -15,7 +15,6 @@ import java.util.List;
 
 @SuppressWarnings({ "SqlNoDataSourceInspection", "SqlResolve", "SqlCheckUsingColumns" })
 @Repository
-@RequiredArgsConstructor
 public final class JdbcChatDao implements ChatDao {
 
     private static final @NotNull RowMapper<Chat> CHAT_ROW_MAPPER = new DataClassRowMapper<>(Chat.class);
@@ -62,6 +61,11 @@ public final class JdbcChatDao implements ChatDao {
 
     private final @NotNull JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    public JdbcChatDao(@NotNull JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     @Override
     public Chat get(long chatId) {
         return jdbcTemplate.query(SELECT_CHAT_BY_ID_QUERY, CHAT_ROW_MAPPER, chatId)
@@ -87,7 +91,7 @@ public final class JdbcChatDao implements ChatDao {
 
     @Override
     public void save(@NotNull Chat element) {
-        jdbcTemplate.update(INSERT_NEW_CHAT_QUERY, element.chatId());
+        jdbcTemplate.update(INSERT_NEW_CHAT_QUERY, element.getChatId());
     }
 
     @Override

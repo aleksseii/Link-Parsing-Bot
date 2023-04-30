@@ -1,7 +1,11 @@
 package ru.tinkoff.edu.java.scrapper.dto.entity;
 
-import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@NoArgsConstructor
-public record Chat(long chatId) {
+@Data
+@AllArgsConstructor
+public final class Chat {
+
+    private long chatId;
 }

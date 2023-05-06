@@ -67,7 +67,7 @@ public final class JdbcChatDao implements ChatDao {
     }
 
     @Override
-    public Chat get(long chatId) {
+    public Chat get(@Positive long chatId) {
         return jdbcTemplate.query(SELECT_CHAT_BY_ID_QUERY, CHAT_ROW_MAPPER, chatId)
                 .stream()
                 .findAny()

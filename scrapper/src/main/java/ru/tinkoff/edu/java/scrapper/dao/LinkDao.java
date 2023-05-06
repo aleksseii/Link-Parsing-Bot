@@ -9,6 +9,8 @@ import java.util.List;
 
 public non-sealed interface LinkDao extends CrudDao<Link> {
 
+    Link getByUrl(@NotNull URI url);
+
     @NotNull List<@NotNull Link> getByChatId(@Positive long chatId);
 
     void delete(@NotNull URI url);

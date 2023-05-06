@@ -35,7 +35,7 @@ class JdbcChatDaoTest extends IntegrationEnvironment {
 
     private static final long EXISTING_LINK_ID_1 = 1L;
     private static final long EXISTING_LINK_ID_2 = 2L;
-    private static final @NotNull URI EXISTING_LINK_URL_1 = URI.create("https://expected-url.com");
+    private static final @NotNull URI EXISTING_LINK_URL_1 = URI.create("https://existing-url.com");
     private static final @NotNull URI EXISTING_LINK_URL_2 = URI.create("https://another-url.com");
 
     private static final @NotNull String INSERT_3_CHATS_QUERY = """
@@ -100,7 +100,7 @@ class JdbcChatDaoTest extends IntegrationEnvironment {
     @Transactional
     @Rollback
     void getByLinkId_shouldReturnAllChatsTrackingTheLink_whenProvidedLinkId() {
-        insertChatsAndLinksAndSubscriptions();
+        insertSubscriptions();
 
         List<Chat> actualChats = chatDao.getByLinkId(EXISTING_LINK_ID_1);
         assertNotNull(actualChats);
@@ -115,7 +115,7 @@ class JdbcChatDaoTest extends IntegrationEnvironment {
     @Transactional
     @Rollback
     void getByLinkUrl_shouldReturnAllChatsTrackingTheLink_whenProvidedLinkUrl() {
-        insertChatsAndLinksAndSubscriptions();
+        insertSubscriptions();
 
         List<Chat> actualChats = chatDao.getByLinkUrl(EXISTING_LINK_URL_1);
         assertNotNull(actualChats);
@@ -156,7 +156,7 @@ class JdbcChatDaoTest extends IntegrationEnvironment {
         assertNull(chat);
     }
 
-    private void insertChatsAndLinksAndSubscriptions() {
+    private void insertSubscriptions() {
         jdbcTemplate.update(
                 INSERT_3_CHATS_QUERY,
                 EXISTING_CHAT_ID_1,

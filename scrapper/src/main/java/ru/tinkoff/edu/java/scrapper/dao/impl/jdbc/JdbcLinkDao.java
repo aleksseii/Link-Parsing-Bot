@@ -27,6 +27,12 @@ public final class JdbcLinkDao implements LinkDao {
              WHERE link_id = ?
             """;
 
+    private static final @NotNull String SELECT_LINK_BY_URL_QUERY = """
+            SELECT *
+              FROM link
+             WHERE url = ?
+            """;
+
     private static final @NotNull String SELECT_ALL_LINKS_QUERY = """
             SELECT *
               FROM link
@@ -61,8 +67,16 @@ public final class JdbcLinkDao implements LinkDao {
     private final @NotNull JdbcTemplate jdbcTemplate;
 
     @Override
-    public Link get(long linkId) {
+    public Link get(@Positive long linkId) {
         return jdbcTemplate.query(SELECT_LINK_BY_ID_QUERY, LINK_ROW_MAPPER, linkId)
+                .stream()
+                .findAny()
+                .orElse(null);
+    }
+
+    @Override
+    public Link getByUrl(@NotNull URI url) {
+        return jdbcTemplate.query(SELECT_LINK_BY_URL_QUERY, LINK_ROW_MAPPER, url.toString())
                 .stream()
                 .findAny()
                 .orElse(null);

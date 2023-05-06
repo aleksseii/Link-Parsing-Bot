@@ -33,20 +33,22 @@ class JdbcChatDaoTest extends IntegrationEnvironment {
             new Chat(EXISTING_CHAT_ID_3)
     );
 
-    private static final long EXISTING_LINK_ID = 1L;
-    private static final long NON_EXISTING_LINK_ID = 2L;
-    private static final @NotNull URI EXISTING_LINK_URL = URI.create("https://expected-url.com");
+    private static final long EXISTING_LINK_ID_1 = 1L;
+    private static final long EXISTING_LINK_ID_2 = 2L;
+    private static final @NotNull URI EXISTING_LINK_URL_1 = URI.create("https://expected-url.com");
+    private static final @NotNull URI EXISTING_LINK_URL_2 = URI.create("https://another-url.com");
 
-    private static final String INSERT_3_CHATS_QUERY = """
+    private static final @NotNull String INSERT_3_CHATS_QUERY = """
             INSERT INTO chat(chat_id)
             VALUES (?),
                    (?),
                    (?)
             """;
 
-    private static final @NotNull String INSERT_LINK_QUERY = """
+    private static final @NotNull String INSERT_2_LINKS_QUERY = """
             INSERT INTO link(url)
-            VALUES (?)
+            VALUES (?),
+                   (?)
             """;
 
     private static final @NotNull String INSERT_3_SUBSCRIPTIONS_QUERY = """
@@ -100,7 +102,7 @@ class JdbcChatDaoTest extends IntegrationEnvironment {
     void getByLinkId_shouldReturnAllChatsTrackingTheLink_whenProvidedLinkId() {
         insertChatsAndLinksAndSubscriptions();
 
-        List<Chat> actualChats = chatDao.getByLinkId(EXISTING_LINK_ID);
+        List<Chat> actualChats = chatDao.getByLinkId(EXISTING_LINK_ID_1);
         assertNotNull(actualChats);
         assertEquals(actualChats.size(), 2);
         assertThat(actualChats, containsInAnyOrder(
@@ -115,7 +117,7 @@ class JdbcChatDaoTest extends IntegrationEnvironment {
     void getByLinkUrl_shouldReturnAllChatsTrackingTheLink_whenProvidedLinkUrl() {
         insertChatsAndLinksAndSubscriptions();
 
-        List<Chat> actualChats = chatDao.getByLinkUrl(EXISTING_LINK_URL);
+        List<Chat> actualChats = chatDao.getByLinkUrl(EXISTING_LINK_URL_1);
         assertNotNull(actualChats);
         assertEquals(actualChats.size(), 2);
         assertThat(actualChats, containsInAnyOrder(
@@ -161,12 +163,16 @@ class JdbcChatDaoTest extends IntegrationEnvironment {
                 EXISTING_CHAT_ID_2,
                 EXISTING_CHAT_ID_3
         );
-        jdbcTemplate.update(INSERT_LINK_QUERY, EXISTING_LINK_URL.toString());
+        jdbcTemplate.update(
+                INSERT_2_LINKS_QUERY,
+                EXISTING_LINK_URL_1.toString(),
+                EXISTING_LINK_URL_2.toString()
+        );
         jdbcTemplate.update(
                 INSERT_3_SUBSCRIPTIONS_QUERY,
-                EXISTING_CHAT_ID_1, EXISTING_LINK_ID,
-                EXISTING_CHAT_ID_2, EXISTING_LINK_ID,
-                EXISTING_CHAT_ID_3, NON_EXISTING_LINK_ID
+                EXISTING_CHAT_ID_1, EXISTING_LINK_ID_1,
+                EXISTING_CHAT_ID_2, EXISTING_LINK_ID_1,
+                EXISTING_CHAT_ID_3, EXISTING_LINK_ID_2
         );
     }
 }

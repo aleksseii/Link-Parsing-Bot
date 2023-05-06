@@ -95,7 +95,7 @@ public final class JdbcChatDao implements ChatDao {
     }
 
     @Override
-    public void delete(@Positive long id) {
-        jdbcTemplate.update(DELETE_CHAT_QUERY, id);
+    public void delete(@Positive long chatId) {
+        jdbcTemplate.update(DELETE_CHAT_QUERY, chatId);
     }
 }
